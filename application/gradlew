@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+GRADLE_VERSION=8.14.3
+DIST="$HOME/.gradle/auspost-distributions/gradle-$GRADLE_VERSION-bin.zip"
+DIR="$HOME/.gradle/auspost-distributions/gradle-$GRADLE_VERSION"
+if [ ! -x "$DIR/bin/gradle" ]; then
+  mkdir -p "$HOME/.gradle/auspost-distributions"
+  if [ ! -f "$DIST" ]; then
+    curl -fsSL -o "$DIST" "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
+  fi
+  rm -rf "$DIR.tmp"
+  mkdir -p "$DIR.tmp"
+  unzip -q "$DIST" -d "$DIR.tmp"
+  mv "$DIR.tmp/gradle-$GRADLE_VERSION" "$DIR"
+  rm -rf "$DIR.tmp"
+fi
+exec "$DIR/bin/gradle" "$@"
