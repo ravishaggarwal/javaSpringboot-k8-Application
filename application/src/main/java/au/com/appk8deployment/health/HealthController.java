@@ -1,4 +1,4 @@
-package au.com.auspost.health;
+package au.com.appk8deployment.health;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

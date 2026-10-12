@@ -1,4 +1,4 @@
-package au.com.auspost.health;
+package au.com.appk8deployment.health;
 
 import org.junit.jupiter.api.Test;
 

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: auspost-health
+    name: app-k8-deployment-health
 
 management:
   endpoints:

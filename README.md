@@ -1,6 +1,6 @@
-# AusPost Health — Local Deployment on Docker Desktop Kubernetes
+# app-k8-deployment Health — Local Deployment on Docker Desktop Kubernetes
 
-This README documents how to build and run the AusPost Spring Boot application locally on a Mac using Docker Desktop Kubernetes and Helm, with **Horizontal Pod Autoscaler (HPA)** and **PodDisruptionBudget (PDB)** enabled. .
+This README documents how to build and run the app-k8-deployment Spring Boot application locally on a Mac using Docker Desktop Kubernetes and Helm, with **Horizontal Pod Autoscaler (HPA)** and **PodDisruptionBudget (PDB)** enabled. .
 
 Check the cluster and tools:
 
@@ -26,7 +26,7 @@ Optional component tests:
 Confirm the generated JAR:
 
 ```bash
-ls -lh build/libs/auspost-health-1.0.0.jar
+ls -lh build/libs/app-k8-deployment-health-1.0.0.jar
 ```
 
 
@@ -37,10 +37,10 @@ cd ..
 docker build \
   --build-arg APP_VERSION=1.0.0 \
   -f container/Dockerfile \
-  -t auspost-health:1.0.0 \
+  -t app-k8-deployment-health:1.0.0 \
   .
 
-docker images auspost-health
+docker images app-k8-deployment-health
 ```
 
 Docker Desktop Kubernetes can normally use images built in Docker Desktop's image store directly. The local Helm values below set `image.pullPolicy: Never`, so Kubernetes will not try to pull from JFrog.
@@ -50,11 +50,11 @@ Docker Desktop Kubernetes can normally use images built in Docker Desktop's imag
 ## 3. Build the local Docker image Deploy to Kubernetes using Helm charts:
 
 ```bash
-helm upgrade --install auspost-health \
-  ./helm/auspost-health \
-  --namespace auspost-local \
+helm upgrade --install app-k8-deployment-health \
+  ./helm/app-k8-deployment-health \
+  --namespace app-k8-deployment-local-Mac \
   --create-namespace \
-  -f ./helm/auspost-health/values-local.yaml \
+  -f ./helm/app-k8-deployment-health/values-localMac.yaml \
   --wait \
   --timeout 5m
 ```
@@ -62,16 +62,16 @@ helm upgrade --install auspost-health \
 Verify:
 
 ```bash
-kubectl get pods,deploy,svc,hpa,pdb -n auspost-local
-kubectl rollout status deployment/auspost-health -n auspost-local
-kubectl logs -n auspost-local deployment/auspost-health
+kubectl get pods,deploy,svc,hpa,pdb -n app-k8-deployment-local-Mac
+kubectl rollout status deployment/app-k8-deployment-health -n app-k8-deployment-local-Mac
+kubectl logs -n app-k8-deployment-local-Mac deployment/app-k8-deployment-health
 ```
 
 
 ## 4. Test the application and Actuator endpoints
 
 ```bash
-kubectl exec -it -n auspost-local deployment/auspost-health -- /bin/sh
+kubectl exec -it -n app-k8-deployment-local-Mac deployment/app-k8-deployment-health -- /bin/sh
 ```
 
 
@@ -85,13 +85,13 @@ curl http://localhost:8080/actuator/health/liveness
 exit
 ```
 
-
+## 5. Test the application and Actuator endpoints
 ```json
 {
   "status": "success",
   "message": "application is healthy",
   "version": "1.0.0",
-  "environment": "auspost-local"
+  "environment": "app-k8-deployment-local"
 }
 ```
 
