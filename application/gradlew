@@ -1,10 +1,10 @@
 #!/bin/sh
 set -eu
 GRADLE_VERSION=8.14.3
-DIST="$HOME/.gradle/auspost-distributions/gradle-$GRADLE_VERSION-bin.zip"
-DIR="$HOME/.gradle/auspost-distributions/gradle-$GRADLE_VERSION"
+DIST="$HOME/.gradle/app-k8-deployment-distributions/gradle-$GRADLE_VERSION-bin.zip"
+DIR="$HOME/.gradle/app-k8-deployment-distributions/gradle-$GRADLE_VERSION"
 if [ ! -x "$DIR/bin/gradle" ]; then
-  mkdir -p "$HOME/.gradle/auspost-distributions"
+  mkdir -p "$HOME/.gradle/app-k8-deployment-distributions"
   if [ ! -f "$DIST" ]; then
     curl -fsSL -o "$DIST" "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
   fi

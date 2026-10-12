@@ -11,4 +11,4 @@ fi
 if [ -n "$CONFIG_LOCATIONS" ]; then
   export SPRING_CONFIG_ADDITIONAL_LOCATION="$CONFIG_LOCATIONS"
 fi
-exec java ${JAVA_TOOL_OPTIONS:-} -jar /opt/auspost/app.jar
+exec java ${JAVA_TOOL_OPTIONS:-} -jar /opt/app-k8-deployment/app.jar
